@@ -14,6 +14,16 @@ class Game
     @desiredStep = 1000 / @fps
     @debug = false #set to true to see debug information about the game on the screen
 
+    @keyPressed = {}
+
+    #monitor the keys that are pressed.
+    $(@canvas).on 'keydown keyup', (event) =>
+      keyName = Game.keys[event.which]
+
+      if keyName
+        @keyPressed[keyName] = event.type is 'keydown'
+        event.preventDefault()
+
   ###
   Called to start the game loop
   ###

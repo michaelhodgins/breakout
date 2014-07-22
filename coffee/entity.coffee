@@ -39,3 +39,24 @@ class Entity
   ###
   radiansToDegrees: (radians) ->
     radians * 180 / Math.PI
+
+  ###
+  Returns value if it is within the min - max range, min if value is lower then min, and max if value is
+  greater than max.
+  ###
+  @constrain: (value, min, max) ->
+#    console.log value, min, max
+    if value < min
+      min
+    else if value > max
+      max
+    else
+      value
+
+  ###
+  Calculates the distance between two points.
+  ###
+  @calcDistance: (fromX, fromY, toX, toY) ->
+    xDistance = Math.abs fromX - toX
+    yDistance = Math.abs fromY - toY
+    Math.sqrt (xDistance * xDistance) + (yDistance * yDistance)

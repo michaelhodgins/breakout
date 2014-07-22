@@ -14,7 +14,7 @@ class Ball extends Entity
   reset: ->
     @x = game.width / 2
     @y = game.height / 2
-    @velocity = 5
+    @velocity = 4
     @vector = 90
     #start the ball moving within a 50 degree arc, randomly
     minVector = -25
@@ -28,10 +28,10 @@ class Ball extends Entity
   ###
   update: (steps) ->
     super steps
-    #if the ball has reached the top or bottom on the game area, bounce it
-    if @y >= game.height - @radius
-      @y = game.height - @radius
-      @bounce 270 #270 is the perpendicular angle to the bottom of the game area
+    #if the ball has reached the bottom of the game area, reset, otherwise, if the ball has reach the top, left, or
+    #right of the game area, bounce it.
+    if @y - @radius >= game.height
+      @reset()
     else if @y <= @radius
       @y = @radius
       @bounce 90 #90 is perpendicular to the top
@@ -41,6 +41,10 @@ class Ball extends Entity
     else if @x >= game.width - @radius
       @x = game.width - @radius
       @bounce 180 #180 is perpendicular to the right wall
+
+    if @intersect game.paddle
+      @y = game.paddle.y - @radius
+      @bounce game.paddle.getNormalAngleAt(@x - game.paddle.x)
 
   ###
   Draw the ball on the given drawing surface.
@@ -70,3 +74,23 @@ class Ball extends Entity
 
     #assign the new vector
     @vector = m
+
+  ###
+  Does this ball intersect with the given other entity?
+  ###
+  intersect: (other) ->
+    #find the rectangle's x coordinate closest to the centre of the ball
+    closestX = Entity.constrain @x, other.x, other.x + other.width
+
+    #find the rectangle's y coordinate closest to the centre of the ball
+    closestY = Entity.constrain @y, other.y, other.y + other.height
+
+    #determine the distance from that point to the centre of the ball
+    distance = Entity.calcDistance @x, @y, closestX, closestY
+
+    if distance < @radius
+      # a collision has occurred
+      true
+    else
+      # a collision has not occurred
+      false

@@ -21,6 +21,17 @@ Game = (function() {
     this.entities = [];
     this.desiredStep = 1000 / this.fps;
     this.debug = false;
+    this.keyPressed = {};
+    $(this.canvas).on('keydown keyup', (function(_this) {
+      return function(event) {
+        var keyName;
+        keyName = Game.keys[event.which];
+        if (keyName) {
+          _this.keyPressed[keyName] = event.type === 'keydown';
+          return event.preventDefault();
+        }
+      };
+    })(this));
   }
 
 

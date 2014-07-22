@@ -9,7 +9,7 @@ game = new Game(canvas);
 
 game.colours = ColourScheme.getMooduinoColourScheme();
 
-game.entities = [game.background = new Background(), game.ball = new Ball()];
+game.entities = [game.background = new Background(), game.ball = new Ball(), game.paddle = new Paddle()];
 
 game.start();
 

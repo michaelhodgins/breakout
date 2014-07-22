@@ -26,7 +26,7 @@ Ball = (function(_super) {
     var maxVector, minVector, randVector;
     this.x = game.width / 2;
     this.y = game.height / 2;
-    this.velocity = 5;
+    this.velocity = 4;
     this.vector = 90;
     minVector = -25;
     maxVector = 25;
@@ -42,18 +42,21 @@ Ball = (function(_super) {
 
   Ball.prototype.update = function(steps) {
     Ball.__super__.update.call(this, steps);
-    if (this.y >= game.height - this.radius) {
-      this.y = game.height - this.radius;
-      return this.bounce(270);
+    if (this.y - this.radius >= game.height) {
+      this.reset();
     } else if (this.y <= this.radius) {
       this.y = this.radius;
-      return this.bounce(90);
+      this.bounce(90);
     } else if (this.x <= this.radius) {
       this.x = this.radius;
-      return this.bounce(360);
+      this.bounce(360);
     } else if (this.x >= game.width - this.radius) {
       this.x = game.width - this.radius;
-      return this.bounce(180);
+      this.bounce(180);
+    }
+    if (this.intersect(game.paddle)) {
+      this.y = game.paddle.y - this.radius;
+      return this.bounce(game.paddle.getNormalAngleAt(this.x - game.paddle.x));
     }
   };
 
@@ -87,6 +90,23 @@ Ball = (function(_super) {
       m -= 360;
     }
     return this.vector = m;
+  };
+
+
+  /*
+  Does this ball intersect with the given other entity?
+   */
+
+  Ball.prototype.intersect = function(other) {
+    var closestX, closestY, distance;
+    closestX = Entity.constrain(this.x, other.x, other.x + other.width);
+    closestY = Entity.constrain(this.y, other.y, other.y + other.height);
+    distance = Entity.calcDistance(this.x, this.y, closestX, closestY);
+    if (distance < this.radius) {
+      return true;
+    } else {
+      return false;
+    }
   };
 
   return Ball;

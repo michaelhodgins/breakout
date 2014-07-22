@@ -12,6 +12,7 @@ game.colours = ColourScheme.getMooduinoColourScheme()
 game.entities = [
   game.background = new Background()
   game.ball = new Ball()
+  game.paddle = new Paddle()
 ]
 
 

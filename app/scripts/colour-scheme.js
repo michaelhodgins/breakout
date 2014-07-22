@@ -18,7 +18,9 @@ ColourScheme = (function() {
     return new ColourScheme({
       gameBackground: '#DFF',
       ballBackground: '#0F0',
-      ballStroke: '#030'
+      ballStroke: '#030',
+      paddleBackground: 'yellow',
+      paddleStroke: 'black'
     });
   };
 

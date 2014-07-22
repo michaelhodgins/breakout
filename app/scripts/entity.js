@@ -65,6 +65,34 @@ Entity = (function() {
     return radians * 180 / Math.PI;
   };
 
+
+  /*
+  Returns value if it is within the min - max range, min if value is lower then min, and max if value is
+  greater than max.
+   */
+
+  Entity.constrain = function(value, min, max) {
+    if (value < min) {
+      return min;
+    } else if (value > max) {
+      return max;
+    } else {
+      return value;
+    }
+  };
+
+
+  /*
+  Calculates the distance between two points.
+   */
+
+  Entity.calcDistance = function(fromX, fromY, toX, toY) {
+    var xDistance, yDistance;
+    xDistance = Math.abs(fromX - toX);
+    yDistance = Math.abs(fromY - toY);
+    return Math.sqrt((xDistance * xDistance) + (yDistance * yDistance));
+  };
+
   return Entity;
 
 })();
