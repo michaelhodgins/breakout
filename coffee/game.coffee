@@ -75,6 +75,7 @@ class Game
   Draw each entity.
   ###
   draw: ->
+    @context.clearRect 0, 0, @canvas.width, @canvas.height
     for entity in @entities
       entity.draw @context if entity.draw
 

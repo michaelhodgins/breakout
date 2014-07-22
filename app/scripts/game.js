@@ -111,6 +111,7 @@ Game = (function() {
 
   Game.prototype.draw = function() {
     var entity, _i, _len, _ref, _results;
+    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
     _ref = this.entities;
     _results = [];
     for (_i = 0, _len = _ref.length; _i < _len; _i++) {

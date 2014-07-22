@@ -41,6 +41,7 @@ Ball = (function(_super) {
    */
 
   Ball.prototype.update = function(steps) {
+    var block, n, _i, _len, _ref, _results;
     Ball.__super__.update.call(this, steps);
     if (this.y - this.radius >= game.height) {
       this.reset();
@@ -57,6 +58,27 @@ Ball = (function(_super) {
     if (this.intersect(game.paddle)) {
       this.y = game.paddle.y - this.radius;
       return this.bounce(game.paddle.getNormalAngleAt(this.x - game.paddle.x));
+    } else {
+      _ref = game.blockMap.blocks;
+      _results = [];
+      for (n = _i = 0, _len = _ref.length; _i < _len; n = ++_i) {
+        block = _ref[n];
+        if (!block.removed && this.intersect(block)) {
+          block.incrementHitCount();
+          if (this.y <= block.y) {
+            _results.push(this.bounce(270));
+          } else if (this.y >= block.y + block.height) {
+            _results.push(this.bounce(90));
+          } else if (this.x <= block.x) {
+            _results.push(this.bounce(180));
+          } else {
+            _results.push(this.bounce(360));
+          }
+        } else {
+          _results.push(void 0);
+        }
+      }
+      return _results;
     }
   };
 

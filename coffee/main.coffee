@@ -11,6 +11,7 @@ game.colours = ColourScheme.getMooduinoColourScheme()
 #add the game entities.
 game.entities = [
   game.background = new Background()
+  game.blockMap = BlockMap.getBlockMap()
   game.ball = new Ball()
   game.paddle = new Paddle()
 ]

@@ -6,7 +6,7 @@ class Entity
   Sets up the entities basic properites.
   ###
   constructor: (@x = 0, @y = 0, @velocity = 0, @vector = 0) ->
-    @height = 0
+#    @height = 0
 
   ###
   Update the entity by the given number of steps.

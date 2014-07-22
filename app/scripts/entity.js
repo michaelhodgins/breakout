@@ -15,7 +15,6 @@ Entity = (function() {
     this.y = y != null ? y : 0;
     this.velocity = velocity != null ? velocity : 0;
     this.vector = vector != null ? vector : 0;
-    this.height = 0;
   }
 
 

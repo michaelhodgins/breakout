@@ -45,7 +45,18 @@ class Ball extends Entity
     if @intersect game.paddle
       @y = game.paddle.y - @radius
       @bounce game.paddle.getNormalAngleAt(@x - game.paddle.x)
-
+    else
+      for block, n in game.blockMap.blocks
+        if not block.removed and @intersect block
+          block.incrementHitCount()
+          if @y <= block.y
+            @bounce 270
+          else if @y >= block.y + block.height
+            @bounce 90
+          else if @x <= block.x
+            @bounce 180
+          else
+            @bounce 360
   ###
   Draw the ball on the given drawing surface.
   ###
