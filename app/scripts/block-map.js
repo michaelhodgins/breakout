@@ -42,7 +42,7 @@ BlockMap = (function(_super) {
     topGutter = 30;
     padding = 0;
     blockHeight = 20;
-    numBlocksPerRow = 6;
+    numBlocksPerRow = 13;
     blockWidth = (game.width - leftGutter * 2 - padding * (numBlocksPerRow - 1)) / numBlocksPerRow;
     numRows = 7;
     for (rowNum = _i = 0; 0 <= numRows ? _i < numRows : _i > numRows; rowNum = 0 <= numRows ? ++_i : --_i) {
