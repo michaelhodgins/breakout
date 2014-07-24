@@ -38,7 +38,7 @@ BlockMap = (function(_super) {
   BlockMap.getBlockMap = function() {
     var blockHeight, blockMap, blockNum, blockWidth, leftGutter, numBlocksPerRow, numRows, padding, rowNum, topGutter, x, y, _i, _j;
     blockMap = new BlockMap([]);
-    leftGutter = 15;
+    leftGutter = 25;
     topGutter = 30;
     padding = 0;
     blockHeight = 20;

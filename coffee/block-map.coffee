@@ -13,7 +13,7 @@ class BlockMap extends Entity
 
   @getBlockMap: ->
     blockMap = new BlockMap []
-    leftGutter = 15
+    leftGutter = 25
     topGutter = 30
     padding = 0
     blockHeight = 20
