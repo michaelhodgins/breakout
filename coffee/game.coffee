@@ -11,6 +11,7 @@ class Game
     @width = @canvas.width
     @height = @canvas.height
     @entities = []
+    @namedEntities = {}
     @desiredStep = 1000 / @fps
     @debug = false #set to true to see debug information about the game on the screen
 
@@ -23,6 +24,13 @@ class Game
       if keyName
         @keyPressed[keyName] = event.type is 'keydown'
         event.preventDefault()
+
+  addEntity: (entity, name = false) ->
+    @entities.push entity
+    @namedEntities[name] = entity if name
+
+  getNamedEntity: (name) ->
+    @namedEntities[name]
 
   ###
   Called to start the game loop

@@ -35,7 +35,7 @@ BlockMap = (function(_super) {
     return _results;
   };
 
-  BlockMap.getBlockMap = function() {
+  BlockMap.getBlockMap = function(game) {
     var blockHeight, blockMap, blockNum, blockWidth, leftGutter, numBlocksPerRow, numRows, padding, rowNum, topGutter, x, y, _i, _j;
     blockMap = new BlockMap([]);
     leftGutter = 25;
@@ -49,7 +49,7 @@ BlockMap = (function(_super) {
       for (blockNum = _j = 0; 0 <= numBlocksPerRow ? _j < numBlocksPerRow : _j > numBlocksPerRow; blockNum = 0 <= numBlocksPerRow ? ++_j : --_j) {
         x = leftGutter + (blockWidth * blockNum) + padding * blockNum;
         y = topGutter + (blockHeight * rowNum) + padding * rowNum;
-        blockMap.blocks.push(new Block(x, y, blockWidth, blockHeight, rowNum + blockNum % 5));
+        blockMap.blocks.push(new Block(game, x, y, blockWidth, blockHeight, rowNum + blockNum % 5));
       }
     }
     return blockMap;

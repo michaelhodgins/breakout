@@ -19,6 +19,7 @@ Game = (function() {
     this.width = this.canvas.width;
     this.height = this.canvas.height;
     this.entities = [];
+    this.namedEntities = {};
     this.desiredStep = 1000 / this.fps;
     this.debug = false;
     this.keyPressed = {};
@@ -33,6 +34,20 @@ Game = (function() {
       };
     })(this));
   }
+
+  Game.prototype.addEntity = function(entity, name) {
+    if (name == null) {
+      name = false;
+    }
+    this.entities.push(entity);
+    if (name) {
+      return this.namedEntities[name] = entity;
+    }
+  };
+
+  Game.prototype.getNamedEntity = function(name) {
+    return this.namedEntities[name];
+  };
 
 
   /*

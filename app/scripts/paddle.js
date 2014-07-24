@@ -6,7 +6,8 @@ var Paddle,
 Paddle = (function(_super) {
   __extends(Paddle, _super);
 
-  function Paddle() {
+  function Paddle(game) {
+    this.game = game;
     Paddle.__super__.constructor.call(this);
     this.height = 8;
     this.width = 60;
@@ -14,23 +15,23 @@ Paddle = (function(_super) {
   }
 
   Paddle.prototype.reset = function() {
-    this.x = (game.width - this.width) / 2;
-    this.y = game.height - this.height * 2;
+    this.x = (this.game.width - this.width) / 2;
+    this.y = this.game.height - this.height * 2;
     return this.maximumVelocity = 10;
   };
 
   Paddle.prototype.update = function(steps) {
-    if (game.keyPressed.left && game.keyPressed.right || !game.keyPressed.left && !game.keyPressed.right) {
+    if (this.game.keyPressed.left && this.game.keyPressed.right || !this.game.keyPressed.left && !this.game.keyPressed.right) {
       this.velocity = 0;
-    } else if (game.keyPressed.left) {
+    } else if (this.game.keyPressed.left) {
       this.velocity = this.maximumVelocity;
       this.vector = 180;
-    } else if (game.keyPressed.right) {
+    } else if (this.game.keyPressed.right) {
       this.velocity = this.maximumVelocity;
       this.vector = 360;
     }
     Paddle.__super__.update.call(this, steps);
-    return this.x = Math.min(Math.max(this.x, 0), game.width - this.width);
+    return this.x = Math.min(Math.max(this.x, 0), this.game.width - this.width);
   };
 
 
@@ -41,10 +42,10 @@ Paddle = (function(_super) {
   Paddle.prototype.draw = function(context) {
     context.beginPath();
     context.rect(this.x, this.y, this.width, this.height);
-    context.fillStyle = game.colours.getColour('paddleBackground');
+    context.fillStyle = this.game.colours.getColour('paddleBackground');
     context.fill();
     context.lineWidth = 1;
-    context.strokeStyle = game.colours.getColour('paddleStroke');
+    context.strokeStyle = this.game.colours.getColour('paddleStroke');
     return context.stroke();
   };
 

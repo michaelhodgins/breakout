@@ -15,7 +15,8 @@ Ball = (function(_super) {
   Construct a ball
    */
 
-  function Ball(radius) {
+  function Ball(game, radius) {
+    this.game = game;
     this.radius = radius != null ? radius : 4;
     Ball.__super__.constructor.call(this);
     this.height = this.radius * 2;
@@ -24,8 +25,8 @@ Ball = (function(_super) {
 
   Ball.prototype.reset = function() {
     var maxVector, minVector, randVector;
-    this.x = game.width / 2;
-    this.y = game.height / 2;
+    this.x = this.game.width / 2;
+    this.y = this.game.height / 2;
     this.velocity = 4;
     this.vector = 90;
     minVector = -25;
@@ -41,9 +42,9 @@ Ball = (function(_super) {
    */
 
   Ball.prototype.update = function(steps) {
-    var block, n, _i, _len, _ref, _results;
+    var block, paddle, _i, _len, _ref, _results;
     Ball.__super__.update.call(this, steps);
-    if (this.y - this.radius >= game.height) {
+    if (this.y - this.radius >= this.game.height) {
       this.reset();
     } else if (this.y <= this.radius) {
       this.y = this.radius;
@@ -51,18 +52,19 @@ Ball = (function(_super) {
     } else if (this.x <= this.radius) {
       this.x = this.radius;
       this.bounce(360);
-    } else if (this.x >= game.width - this.radius) {
-      this.x = game.width - this.radius;
+    } else if (this.x >= this.game.width - this.radius) {
+      this.x = this.game.width - this.radius;
       this.bounce(180);
     }
-    if (this.intersect(game.paddle)) {
-      this.y = game.paddle.y - this.radius;
-      return this.bounce(game.paddle.getNormalAngleAt(this.x - game.paddle.x));
+    paddle = this.game.getNamedEntity("paddle");
+    if (this.intersect(paddle)) {
+      this.y = paddle.y - this.radius;
+      return this.bounce(paddle.getNormalAngleAt(this.x - paddle.x));
     } else {
-      _ref = game.blockMap.blocks;
+      _ref = this.game.getNamedEntity("blockMap").blocks;
       _results = [];
-      for (n = _i = 0, _len = _ref.length; _i < _len; n = ++_i) {
-        block = _ref[n];
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        block = _ref[_i];
         if (!block.removed && this.intersect(block)) {
           block.incrementHitCount();
           if (this.y <= block.y) {
@@ -90,10 +92,10 @@ Ball = (function(_super) {
   Ball.prototype.draw = function(context) {
     context.beginPath();
     context.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, false);
-    context.fillStyle = game.colours.getColour("ballBackground");
+    context.fillStyle = this.game.colours.getColour("ballBackground");
     context.fill();
     context.lineWidth = 1;
-    context.strokeStyle = game.colours.getColour("ballStroke");
+    context.strokeStyle = this.game.colours.getColour("ballStroke");
     return context.stroke();
   };
 

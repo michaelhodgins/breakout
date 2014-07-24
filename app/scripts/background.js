@@ -10,17 +10,14 @@ var Background,
 Background = (function(_super) {
   __extends(Background, _super);
 
-  function Background() {
-    return Background.__super__.constructor.apply(this, arguments);
+  function Background(game) {
+    this.game = game;
+    Background.__super__.constructor.call(this);
   }
 
-  Background.prototype.construct = function() {
-    return Background.__super__.construct.call(this);
-  };
-
   Background.prototype.draw = function(context) {
-    context.fillStyle = game.colours.getColour('gameBackground');
-    return context.fillRect(0, 0, game.width, game.height);
+    context.fillStyle = this.game.colours.getColour('gameBackground');
+    return context.fillRect(0, 0, this.game.width, this.game.height);
   };
 
   return Background;

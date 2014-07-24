@@ -9,12 +9,11 @@ game = new Game canvas
 game.colours = ColourScheme.getMooduinoColourScheme()
 
 #add the game entities.
-game.entities = [
-  game.background = new Background()
-  game.blockMap = BlockMap.getBlockMap()
-  game.ball = new Ball()
-  game.paddle = new Paddle()
-]
+game.addEntity new Background(game), "background"
+game.addEntity new ScoreBoard(game), "scoreBoard"
+game.addEntity BlockMap.getBlockMap(game), "blockMap"
+game.addEntity new Ball(game), "ball"
+game.addEntity new Paddle(game), "paddle"
 
 
 #start the game

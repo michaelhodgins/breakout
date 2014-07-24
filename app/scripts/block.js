@@ -6,7 +6,8 @@ var Block,
 Block = (function(_super) {
   __extends(Block, _super);
 
-  function Block(x, y, width, height, colourCode, hitPoints) {
+  function Block(game, x, y, width, height, colourCode, hitPoints) {
+    this.game = game;
     this.x = x != null ? x : 0;
     this.y = y != null ? y : 0;
     this.width = width != null ? width : 30;
@@ -16,7 +17,6 @@ Block = (function(_super) {
     Block.__super__.constructor.call(this, this.x, this.y);
     this.removed = false;
     this.hits = 0;
-    console.log(this.colourCode);
   }
 
   Block.prototype.update = function(steps) {
@@ -27,10 +27,10 @@ Block = (function(_super) {
     if (!this.removed) {
       context.beginPath();
       context.rect(this.x, this.y, this.width, this.height);
-      context.fillStyle = game.colours.getColour("" + this.colourCode + "Background");
+      context.fillStyle = this.game.colours.getColour("" + this.colourCode + "Background");
       context.fill();
       context.lineWidth = 1;
-      context.strokeStyle = game.colours.getColour("" + this.colourCode + "stroke");
+      context.strokeStyle = this.game.colours.getColour("" + this.colourCode + "stroke");
       return context.stroke();
     }
   };

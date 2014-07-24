@@ -11,7 +11,7 @@ class BlockMap extends Entity
     super context
     block.draw(context) for block in @blocks
 
-  @getBlockMap: ->
+  @getBlockMap: (game) ->
     blockMap = new BlockMap []
     leftGutter = 25
     topGutter = 30
@@ -24,5 +24,5 @@ class BlockMap extends Entity
       for blockNum in [0...numBlocksPerRow]
         x = leftGutter + (blockWidth * blockNum) + padding * blockNum
         y = topGutter + (blockHeight * rowNum) + padding * rowNum
-        blockMap.blocks.push(new Block x, y, blockWidth, blockHeight, rowNum + blockNum % 5)
+        blockMap.blocks.push(new Block game, x, y, blockWidth, blockHeight, rowNum + blockNum % 5)
     blockMap

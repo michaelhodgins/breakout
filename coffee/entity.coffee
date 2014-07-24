@@ -3,10 +3,9 @@ A base class for objects that move around the game area. The can be updated and 
 ###
 class Entity
   ###
-  Sets up the entities basic properites.
+  Sets up the entities basic properties.
   ###
   constructor: (@x = 0, @y = 0, @velocity = 0, @vector = 0) ->
-#    @height = 0
 
   ###
   Update the entity by the given number of steps.

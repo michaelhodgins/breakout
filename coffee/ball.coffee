@@ -6,14 +6,14 @@ class Ball extends Entity
   ###
   Construct a ball
   ###
-  constructor: (@radius = 4) ->
+  constructor: (@game, @radius = 4) ->
     super()
     @height = @radius * 2
     @reset()
 
   reset: ->
-    @x = game.width / 2
-    @y = game.height / 2
+    @x = @game.width / 2
+    @y = @game.height / 2
     @velocity = 4
     @vector = 90
     #start the ball moving within a 50 degree arc, randomly
@@ -30,7 +30,7 @@ class Ball extends Entity
     super steps
     #if the ball has reached the bottom of the game area, reset, otherwise, if the ball has reach the top, left, or
     #right of the game area, bounce it.
-    if @y - @radius >= game.height
+    if @y - @radius >= @game.height
       @reset()
     else if @y <= @radius
       @y = @radius
@@ -38,15 +38,16 @@ class Ball extends Entity
     else if @x <= @radius
       @x = @radius
       @bounce 360 # 360 is perpendicular to the left wall
-    else if @x >= game.width - @radius
-      @x = game.width - @radius
+    else if @x >= @game.width - @radius
+      @x = @game.width - @radius
       @bounce 180 #180 is perpendicular to the right wall
 
-    if @intersect game.paddle
-      @y = game.paddle.y - @radius
-      @bounce game.paddle.getNormalAngleAt(@x - game.paddle.x)
+    paddle = @game.getNamedEntity("paddle")
+    if @intersect paddle
+      @y = paddle.y - @radius
+      @bounce paddle.getNormalAngleAt(@x - paddle.x)
     else
-      for block, n in game.blockMap.blocks
+      for block in @game.getNamedEntity("blockMap").blocks
         if not block.removed and @intersect block
           block.incrementHitCount()
           if @y <= block.y
@@ -63,10 +64,10 @@ class Ball extends Entity
   draw: (context) ->
     context.beginPath()
     context.arc @x, @y, @radius, 0, 2 * Math.PI, false
-    context.fillStyle = game.colours.getColour "ballBackground"
+    context.fillStyle = @game.colours.getColour "ballBackground"
     context.fill()
     context.lineWidth = 1
-    context.strokeStyle = game.colours.getColour "ballStroke"
+    context.strokeStyle = @game.colours.getColour "ballStroke"
     context.stroke()
 
   ###

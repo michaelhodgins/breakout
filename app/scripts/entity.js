@@ -8,7 +8,7 @@ var Entity;
 Entity = (function() {
 
   /*
-  Sets up the entities basic properites.
+  Sets up the entities basic properties.
    */
   function Entity(x, y, velocity, vector) {
     this.x = x != null ? x : 0;
