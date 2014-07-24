@@ -1,5 +1,5 @@
 class ScoreBoard extends Entity
-  constructor: (@game) ->
+  constructor: (@game, @height = 25) ->
     super()
 
   update: (steps) ->

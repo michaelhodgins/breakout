@@ -43,12 +43,12 @@ BlockMap = (function(_super) {
     padding = 0;
     blockHeight = 20;
     numBlocksPerRow = 13;
-    blockWidth = (game.width - leftGutter * 2 - padding * (numBlocksPerRow - 1)) / numBlocksPerRow;
+    blockWidth = (game.playArea.width - leftGutter * 2 - padding * (numBlocksPerRow - 1)) / numBlocksPerRow;
     numRows = 7;
     for (rowNum = _i = 0; 0 <= numRows ? _i < numRows : _i > numRows; rowNum = 0 <= numRows ? ++_i : --_i) {
       for (blockNum = _j = 0; 0 <= numBlocksPerRow ? _j < numBlocksPerRow : _j > numBlocksPerRow; blockNum = 0 <= numBlocksPerRow ? ++_j : --_j) {
-        x = leftGutter + (blockWidth * blockNum) + padding * blockNum;
-        y = topGutter + (blockHeight * rowNum) + padding * rowNum;
+        x = game.playArea.x + leftGutter + (blockWidth * blockNum) + padding * blockNum;
+        y = game.playArea.y + topGutter + (blockHeight * rowNum) + padding * rowNum;
         blockMap.blocks.push(new Block(game, x, y, blockWidth, blockHeight, rowNum + blockNum % 5));
       }
     }

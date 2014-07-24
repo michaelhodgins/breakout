@@ -10,6 +10,14 @@ class Game
     @context = @canvas.getContext '2d'
     @width = @canvas.width
     @height = @canvas.height
+
+    @playArea = {
+      x: 0
+      y: 0
+      @height
+      @width
+    }
+
     @entities = []
     @namedEntities = {}
     @desiredStep = 1000 / @fps
@@ -28,6 +36,8 @@ class Game
   addEntity: (entity, name = false) ->
     @entities.push entity
     @namedEntities[name] = entity if name
+    if name is "scoreBoard"
+      @playArea.y += entity.height
 
   getNamedEntity: (name) ->
     @namedEntities[name]

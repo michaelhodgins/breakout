@@ -25,8 +25,8 @@ Ball = (function(_super) {
 
   Ball.prototype.reset = function() {
     var maxVector, minVector, randVector;
-    this.x = this.game.width / 2;
-    this.y = this.game.height / 2;
+    this.x = this.game.playArea.width / 2;
+    this.y = this.game.playArea.height / 2;
     this.velocity = 4;
     this.vector = 90;
     minVector = -25;
@@ -44,15 +44,15 @@ Ball = (function(_super) {
   Ball.prototype.update = function(steps) {
     var block, paddle, _i, _len, _ref, _results;
     Ball.__super__.update.call(this, steps);
-    if (this.y - this.radius >= this.game.height) {
+    if (this.y - this.radius >= this.game.playArea.height) {
       this.reset();
-    } else if (this.y <= this.radius) {
-      this.y = this.radius;
+    } else if (this.y <= this.radius + this.game.playArea.y) {
+      this.y = this.radius + this.game.playArea.y;
       this.bounce(90);
-    } else if (this.x <= this.radius) {
+    } else if (this.x <= this.radius + this.game.playArea.x) {
       this.x = this.radius;
       this.bounce(360);
-    } else if (this.x >= this.game.width - this.radius) {
+    } else if (this.x >= this.game.playArea.width - this.radius) {
       this.x = this.game.width - this.radius;
       this.bounce(180);
     }

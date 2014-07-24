@@ -7,4 +7,4 @@ class Background extends Entity
 
   draw: (context) ->
     context.fillStyle = @game.colours.getColour 'gameBackground'
-    context.fillRect 0, 0, @game.width, @game.height
+    context.fillRect @game.playArea.x, @game.playArea.y, @game.playArea.width, @game.playArea.height

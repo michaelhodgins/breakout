@@ -18,6 +18,12 @@ Game = (function() {
     this.context = this.canvas.getContext('2d');
     this.width = this.canvas.width;
     this.height = this.canvas.height;
+    this.playArea = {
+      x: 0,
+      y: 0,
+      height: this.height,
+      width: this.width
+    };
     this.entities = [];
     this.namedEntities = {};
     this.desiredStep = 1000 / this.fps;
@@ -41,7 +47,10 @@ Game = (function() {
     }
     this.entities.push(entity);
     if (name) {
-      return this.namedEntities[name] = entity;
+      this.namedEntities[name] = entity;
+    }
+    if (name === "scoreBoard") {
+      return this.playArea.y += entity.height;
     }
   };
 

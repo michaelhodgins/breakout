@@ -15,8 +15,8 @@ Paddle = (function(_super) {
   }
 
   Paddle.prototype.reset = function() {
-    this.x = (this.game.width - this.width) / 2;
-    this.y = this.game.height - this.height * 2;
+    this.x = (this.game.playArea.width - this.width) / 2;
+    this.y = this.game.playArea.height - this.height * 2;
     return this.maximumVelocity = 10;
   };
 
@@ -31,7 +31,7 @@ Paddle = (function(_super) {
       this.vector = 360;
     }
     Paddle.__super__.update.call(this, steps);
-    return this.x = Math.min(Math.max(this.x, 0), this.game.width - this.width);
+    return this.x = Math.min(Math.max(this.x, this.game.playArea.x), this.game.playArea.width - this.width);
   };
 
 

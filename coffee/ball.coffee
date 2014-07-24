@@ -12,8 +12,8 @@ class Ball extends Entity
     @reset()
 
   reset: ->
-    @x = @game.width / 2
-    @y = @game.height / 2
+    @x = @game.playArea.width / 2
+    @y = @game.playArea.height / 2
     @velocity = 4
     @vector = 90
     #start the ball moving within a 50 degree arc, randomly
@@ -30,15 +30,15 @@ class Ball extends Entity
     super steps
     #if the ball has reached the bottom of the game area, reset, otherwise, if the ball has reach the top, left, or
     #right of the game area, bounce it.
-    if @y - @radius >= @game.height
+    if @y - @radius >= @game.playArea.height
       @reset()
-    else if @y <= @radius
-      @y = @radius
+    else if @y <= @radius + @game.playArea.y
+      @y = @radius + @game.playArea.y
       @bounce 90 #90 is perpendicular to the top
-    else if @x <= @radius
+    else if @x <= @radius + @game.playArea.x
       @x = @radius
       @bounce 360 # 360 is perpendicular to the left wall
-    else if @x >= @game.width - @radius
+    else if @x >= @game.playArea.width - @radius
       @x = @game.width - @radius
       @bounce 180 #180 is perpendicular to the right wall
 

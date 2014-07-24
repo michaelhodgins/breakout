@@ -6,8 +6,8 @@ class Paddle extends Entity
     @reset()
 
   reset: ->
-    @x = (@game.width - @width) / 2
-    @y = @game.height - @height * 2
+    @x = (@game.playArea.width - @width) / 2
+    @y = @game.playArea.height - @height * 2
     @maximumVelocity = 10
 
   update: (steps) ->
@@ -21,7 +21,7 @@ class Paddle extends Entity
       @vector = 360
 
     super steps
-    @x = Math.min(Math.max(@x, 0), @game.width - @width)
+    @x = Math.min(Math.max(@x, @game.playArea.x), @game.playArea.width - @width)
 
   ###
   Draw the paddle.
