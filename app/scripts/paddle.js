@@ -56,7 +56,7 @@ Paddle = (function(_super) {
 
   Paddle.prototype.getNormalAngleAt = function(x) {
     var segments;
-    segments = 4;
+    segments = 3;
     if (x > this.width / segments && x < this.width / segments * (segments - 1)) {
       return 270;
     } else {

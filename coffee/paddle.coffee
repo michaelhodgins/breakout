@@ -39,7 +39,7 @@ class Paddle extends Entity
   Returns the angle that is perpendicular to the top of the paddle at the given x coordinate.
   ###
   getNormalAngleAt: (x) ->
-    segments = 4
+    segments = 3
     if x > @width / segments and x < @width / segments * (segments - 1)
       270
     else
