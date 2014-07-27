@@ -73,13 +73,13 @@ Ball = (function(_super) {
         if (!block.removed && this.intersect(block)) {
           block.incrementHitCount();
           this.game.blockHit(block);
-          if (this.x > block.x + block.width) {
+          if (this.x >= block.x + block.width - this.velocity) {
             _results.push(this.bounce(360));
-          } else if (this.y <= block.y) {
+          } else if (this.y <= block.y + this.velocity) {
             _results.push(this.bounce(270));
-          } else if (this.y >= block.y + block.height) {
+          } else if (this.y >= block.y + block.height - this.velocity) {
             _results.push(this.bounce(90));
-          } else if (this.x <= block.x) {
+          } else if (this.x <= block.x + this.velocity) {
             _results.push(this.bounce(180));
           } else {
             _results.push(void 0);

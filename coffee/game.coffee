@@ -100,7 +100,7 @@ class Game
   ###
   pause: ->
     #only pause the game if it's been running for 5 loops (this "debounces" the pause button).
-    if @runningLoops > 5
+    if @runningLoops > 10
       @runningLoops = 0
       @paused = true
       @messageBox "Paused", "Press P to continue." if @paused
@@ -110,7 +110,7 @@ class Game
   ###
   unpause: ->
     #only unpause the game if it's been paused for 5 loops (this "debounces" the continue button).
-    if @pausedLoops > 5
+    if @pausedLoops > 10
       @pausedLoops = 0
       @paused = false
 

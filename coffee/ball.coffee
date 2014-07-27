@@ -55,13 +55,13 @@ class Ball extends Entity
           block.incrementHitCount()
           @game.blockHit block
 
-          if @x > block.x + block.width
+          if @x >= block.x + block.width - @velocity
             @bounce 360
-          else if @y <= block.y
+          else if @y <= block.y + @velocity
             @bounce 270
-          else if @y >= block.y + block.height
+          else if @y >= block.y + block.height - @velocity
             @bounce 90
-          else if @x <= block.x
+          else if @x <= block.x + @velocity
             @bounce 180
   ###
   Draw the ball on the given drawing surface.

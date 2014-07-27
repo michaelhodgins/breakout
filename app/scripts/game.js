@@ -131,7 +131,7 @@ Game = (function() {
    */
 
   Game.prototype.pause = function() {
-    if (this.runningLoops > 5) {
+    if (this.runningLoops > 10) {
       this.runningLoops = 0;
       this.paused = true;
       if (this.paused) {
@@ -146,7 +146,7 @@ Game = (function() {
    */
 
   Game.prototype.unpause = function() {
-    if (this.pausedLoops > 5) {
+    if (this.pausedLoops > 10) {
       this.pausedLoops = 0;
       return this.paused = false;
     }
