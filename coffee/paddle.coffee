@@ -14,7 +14,7 @@ class Paddle extends Entity
   reset: ->
     @x = (@game.playArea.width - @width) / 2
     @y = @game.playArea.height - @height * 2
-    @maximumVelocity = 10
+    @maximumVelocity = 8
 
   ###
   Update the Paddle.

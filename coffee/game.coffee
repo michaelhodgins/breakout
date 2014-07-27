@@ -53,6 +53,7 @@ class Game
     @lives--
     if @lives > 0
       @getNamedEntity("ball").reset()
+      @runningLoops = 0
     else
       @gameOver()
 
@@ -89,6 +90,7 @@ class Game
       @width
     }
 
+    @runningLoops = 0
     @addEntity new Background(@), "background"
     @addEntity new ScoreBoard(@), "scoreBoard"
     @addEntity BlockMap.getBlockMap(@), "blockMap"
@@ -189,7 +191,7 @@ class Game
   Update all the entities once.
   ###
   update: (steps) ->
-    if @lives > 0 and not @paused
+    if @lives > 0 and not @paused and @runningLoops > 24
       for entity in @entities
         entity.update steps if entity.update
 

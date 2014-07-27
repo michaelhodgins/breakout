@@ -32,7 +32,7 @@ Ball = (function(_super) {
     var maxVector, minVector, randVector;
     this.x = this.game.playArea.width / 2;
     this.y = this.game.playArea.height / 2;
-    this.velocity = 4.5;
+    this.velocity = 4;
     this.vector = 90;
     minVector = -25;
     maxVector = 25;
@@ -73,14 +73,14 @@ Ball = (function(_super) {
         if (!block.removed && this.intersect(block)) {
           block.incrementHitCount();
           this.game.blockHit(block);
-          if (this.x >= block.x + block.width - this.velocity) {
-            _results.push(this.bounce(360));
-          } else if (this.y <= block.y + this.velocity) {
-            _results.push(this.bounce(270));
-          } else if (this.y >= block.y + block.height - this.velocity) {
+          if (this.y >= block.y + block.height - this.velocity) {
             _results.push(this.bounce(90));
+          } else if (this.x >= block.x + block.width - this.velocity) {
+            _results.push(this.bounce(360));
           } else if (this.x <= block.x + this.velocity) {
             _results.push(this.bounce(180));
+          } else if (this.y <= block.y + this.velocity) {
+            _results.push(this.bounce(270));
           } else {
             _results.push(void 0);
           }

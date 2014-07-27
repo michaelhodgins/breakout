@@ -73,7 +73,8 @@ Game = (function() {
   Game.prototype.lifeLost = function() {
     this.lives--;
     if (this.lives > 0) {
-      return this.getNamedEntity("ball").reset();
+      this.getNamedEntity("ball").reset();
+      return this.runningLoops = 0;
     } else {
       return this.gameOver();
     }
@@ -118,6 +119,7 @@ Game = (function() {
       height: this.height,
       width: this.width
     };
+    this.runningLoops = 0;
     this.addEntity(new Background(this), "background");
     this.addEntity(new ScoreBoard(this), "scoreBoard");
     this.addEntity(BlockMap.getBlockMap(this), "blockMap");
@@ -253,7 +255,7 @@ Game = (function() {
 
   Game.prototype.update = function(steps) {
     var entity, _i, _len, _ref;
-    if (this.lives > 0 && !this.paused) {
+    if (this.lives > 0 && !this.paused && this.runningLoops > 24) {
       _ref = this.entities;
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         entity = _ref[_i];

@@ -27,7 +27,7 @@ Paddle = (function(_super) {
   Paddle.prototype.reset = function() {
     this.x = (this.game.playArea.width - this.width) / 2;
     this.y = this.game.playArea.height - this.height * 2;
-    return this.maximumVelocity = 10;
+    return this.maximumVelocity = 8;
   };
 
 

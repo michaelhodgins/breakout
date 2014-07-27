@@ -42,7 +42,7 @@ class BlockMap extends Entity
     blockHeight = 20
     numBlocksPerRow = 13
     blockWidth = (game.playArea.width - leftGutter * 2 - padding * (numBlocksPerRow - 1)) / numBlocksPerRow
-    numRows = 7
+    numRows = 9
     for rowNum in [0...numRows]
       for blockNum in [0...numBlocksPerRow]
         x = game.playArea.x + leftGutter + (blockWidth * blockNum) + padding * blockNum

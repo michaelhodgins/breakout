@@ -88,7 +88,7 @@ BlockMap = (function(_super) {
     blockHeight = 20;
     numBlocksPerRow = 13;
     blockWidth = (game.playArea.width - leftGutter * 2 - padding * (numBlocksPerRow - 1)) / numBlocksPerRow;
-    numRows = 7;
+    numRows = 9;
     for (rowNum = _i = 0; 0 <= numRows ? _i < numRows : _i > numRows; rowNum = 0 <= numRows ? ++_i : --_i) {
       for (blockNum = _j = 0; 0 <= numBlocksPerRow ? _j < numBlocksPerRow : _j > numBlocksPerRow; blockNum = 0 <= numBlocksPerRow ? ++_j : --_j) {
         x = game.playArea.x + leftGutter + (blockWidth * blockNum) + padding * blockNum;

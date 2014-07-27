@@ -17,7 +17,7 @@ class Ball extends Entity
   reset: ->
     @x = @game.playArea.width / 2
     @y = @game.playArea.height / 2
-    @velocity = 4.5
+    @velocity = 4
     @vector = 90
     #start the ball moving within a 50 degree arc, randomly
     minVector = -25
@@ -55,14 +55,14 @@ class Ball extends Entity
           block.incrementHitCount()
           @game.blockHit block
 
-          if @x >= block.x + block.width - @velocity
-            @bounce 360
-          else if @y <= block.y + @velocity
-            @bounce 270
-          else if @y >= block.y + block.height - @velocity
+          if @y >= block.y + block.height - @velocity
             @bounce 90
+          else if @x >= block.x + block.width - @velocity
+            @bounce 360
           else if @x <= block.x + @velocity
             @bounce 180
+          else if @y <= block.y + @velocity
+            @bounce 270
   ###
   Draw the ball on the given drawing surface.
   ###
