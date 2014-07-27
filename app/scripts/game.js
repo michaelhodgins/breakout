@@ -60,6 +60,25 @@ Game = (function() {
     return this.namedEntities[name];
   };
 
+  Game.prototype.lifeLost = function(callback) {
+    this.lives--;
+    if (this.lives > 0) {
+      return this.getNamedEntity("ball").reset();
+    } else {
+      return this.gameOver();
+    }
+  };
+
+  Game.prototype.blockHit = function(block) {
+    if (block.hits < block.hitPoints) {
+      return this.score++;
+    } else {
+      return this.score += 5;
+    }
+  };
+
+  Game.prototype.gameOver = function() {};
+
 
   /*
   Called to start the game loop
@@ -118,11 +137,13 @@ Game = (function() {
 
   Game.prototype.update = function(steps) {
     var entity, _i, _len, _ref;
-    _ref = this.entities;
-    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-      entity = _ref[_i];
-      if (entity.update) {
-        entity.update(steps);
+    if (this.lives > 0) {
+      _ref = this.entities;
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        entity = _ref[_i];
+        if (entity.update) {
+          entity.update(steps);
+        }
       }
     }
     if (this.debug) {

@@ -31,7 +31,7 @@ class Ball extends Entity
     #if the ball has reached the bottom of the game area, reset, otherwise, if the ball has reach the top, left, or
     #right of the game area, bounce it.
     if @y - @radius >= @game.playArea.height
-      @reset()
+      @game.lifeLost()
     else if @y <= @radius + @game.playArea.y
       @y = @radius + @game.playArea.y
       @bounce 90 #90 is perpendicular to the top
@@ -50,6 +50,7 @@ class Ball extends Entity
       for block in @game.getNamedEntity("blockMap").blocks
         if not block.removed and @intersect block
           block.incrementHitCount()
+          @game.blockHit block
           if @y <= block.y
             @bounce 270
           else if @y >= block.y + block.height

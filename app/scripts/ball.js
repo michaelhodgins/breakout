@@ -45,7 +45,7 @@ Ball = (function(_super) {
     var block, paddle, _i, _len, _ref, _results;
     Ball.__super__.update.call(this, steps);
     if (this.y - this.radius >= this.game.playArea.height) {
-      this.reset();
+      this.game.lifeLost();
     } else if (this.y <= this.radius + this.game.playArea.y) {
       this.y = this.radius + this.game.playArea.y;
       this.bounce(90);
@@ -67,6 +67,7 @@ Ball = (function(_super) {
         block = _ref[_i];
         if (!block.removed && this.intersect(block)) {
           block.incrementHitCount();
+          this.game.blockHit(block);
           if (this.y <= block.y) {
             _results.push(this.bounce(270));
           } else if (this.y >= block.y + block.height) {

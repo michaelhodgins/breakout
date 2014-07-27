@@ -45,6 +45,23 @@ class Game
   getNamedEntity: (name) ->
     @namedEntities[name]
 
+  lifeLost: (callback) ->
+    @lives--
+    if @lives > 0
+      @getNamedEntity("ball").reset()
+    else
+      @gameOver()
+
+  blockHit: (block) ->
+    if block.hits < block.hitPoints
+      @score++
+    else
+      @score += 5
+
+  gameOver: ->
+
+
+
   ###
   Called to start the game loop
   ###
@@ -85,8 +102,9 @@ class Game
   Update all the entities once.
   ###
   update: (steps) ->
-    for entity in @entities
-      entity.update steps if entity.update
+    if @lives > 0
+      for entity in @entities
+        entity.update steps if entity.update
 
     # Output some interesting data if @debug is true
     if @debug
