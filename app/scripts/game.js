@@ -18,18 +18,11 @@ Game = (function() {
     this.context = this.canvas.getContext('2d');
     this.width = this.canvas.width;
     this.height = this.canvas.height;
-    this.playArea = {
-      x: 0,
-      y: 0,
-      height: this.height,
-      width: this.width
-    };
-    this.lives = 3;
-    this.score = 0;
-    this.entities = [];
-    this.namedEntities = {};
     this.desiredStep = 1000 / this.fps;
     this.debug = false;
+    this.paused = false;
+    this.pausedLoops = 0;
+    this.runningLoops = 0;
     this.keyPressed = {};
     $(this.canvas).on('keydown keyup', (function(_this) {
       return function(event) {
@@ -41,7 +34,14 @@ Game = (function() {
         }
       };
     })(this));
+    this.setup();
   }
+
+
+  /*
+  Add an Entity object to the game. If name is given, the entity is associated with that name, thad this can be used
+  later to retrieve the entity by calling getNamedEntity().
+   */
 
   Game.prototype.addEntity = function(entity, name) {
     if (name == null) {
@@ -56,11 +56,21 @@ Game = (function() {
     }
   };
 
+
+  /*
+  Return the entity associated with the given name.
+   */
+
   Game.prototype.getNamedEntity = function(name) {
     return this.namedEntities[name];
   };
 
-  Game.prototype.lifeLost = function(callback) {
+
+  /*
+  Call to indicate that a life has been lost.
+   */
+
+  Game.prototype.lifeLost = function() {
     this.lives--;
     if (this.lives > 0) {
       return this.getNamedEntity("ball").reset();
@@ -68,6 +78,11 @@ Game = (function() {
       return this.gameOver();
     }
   };
+
+
+  /*
+  Call to indicate that a the given block has been hit. This is used for scoring.
+   */
 
   Game.prototype.blockHit = function(block) {
     if (block.hits < block.hitPoints) {
@@ -77,7 +92,82 @@ Game = (function() {
     }
   };
 
-  Game.prototype.gameOver = function() {};
+
+  /*
+  Render the game over message.
+   */
+
+  Game.prototype.gameOver = function() {
+    this.getNamedEntity("scoreBoard").draw(this.context);
+    return this.messageBox("Game Over!", "Press S to play again.");
+  };
+
+
+  /*
+  Set up the game's entities, score, lives and play area.
+   */
+
+  Game.prototype.setup = function() {
+    this.lives = 5;
+    this.score = 0;
+    this.entities = [];
+    this.namedEntities = {};
+    this.playArea = {
+      x: 0,
+      y: 0,
+      height: this.height,
+      width: this.width
+    };
+    this.addEntity(new Background(this), "background");
+    this.addEntity(new ScoreBoard(this), "scoreBoard");
+    this.addEntity(BlockMap.getBlockMap(this), "blockMap");
+    this.addEntity(new Ball(this), "ball");
+    return this.addEntity(new Paddle(this), "paddle");
+  };
+
+
+  /*
+  Call to pause the game.
+   */
+
+  Game.prototype.pause = function() {
+    if (this.runningLoops > 5) {
+      this.runningLoops = 0;
+      this.paused = true;
+      if (this.paused) {
+        return this.messageBox("Paused", "Press P to continue.");
+      }
+    }
+  };
+
+
+  /*
+  Call to unpause the game.
+   */
+
+  Game.prototype.unpause = function() {
+    if (this.pausedLoops > 5) {
+      this.pausedLoops = 0;
+      return this.paused = false;
+    }
+  };
+
+
+  /*
+  Render a message box.
+   */
+
+  Game.prototype.messageBox = function(title, text) {
+    this.context.beginPath();
+    this.context.rect(this.width / 5, this.height / 3, this.width / 5 * 3, this.height / 3);
+    this.context.fillStyle = this.colours.getColour("messageBoxBackground");
+    this.context.fill();
+    this.context.fillStyle = this.colours.getColour("messageBoxForeground");
+    this.context.font = '32px monospace';
+    this.context.fillText(title, this.width / 4, this.height / 2 - 20);
+    this.context.font = '12px monospace';
+    return this.context.fillText(text, this.width / 4, this.height / 2 + 30);
+  };
 
 
   /*
@@ -122,6 +212,23 @@ Game = (function() {
 
   Game.prototype.loop = function() {
     var startTime, steps, timePassed;
+    if (this.lives < 1 && this.keyPressed.S) {
+      this.setup();
+    }
+    if (this.lives > 0) {
+      if (this.keyPressed.P) {
+        if (!this.paused) {
+          this.pause();
+        } else {
+          this.unpause();
+        }
+      }
+      if (this.paused) {
+        this.pausedLoops++;
+      } else {
+        this.runningLoops++;
+      }
+    }
     startTime = new Date().getTime();
     timePassed = startTime - this.lastUpdate;
     steps = this.desiredStep / timePassed;
@@ -137,7 +244,7 @@ Game = (function() {
 
   Game.prototype.update = function(steps) {
     var entity, _i, _len, _ref;
-    if (this.lives > 0) {
+    if (this.lives > 0 && !this.paused) {
       _ref = this.entities;
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         entity = _ref[_i];
@@ -158,18 +265,20 @@ Game = (function() {
 
   Game.prototype.draw = function() {
     var entity, _i, _len, _ref, _results;
-    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    _ref = this.entities;
-    _results = [];
-    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-      entity = _ref[_i];
-      if (entity.draw) {
-        _results.push(entity.draw(this.context));
-      } else {
-        _results.push(void 0);
+    if (this.lives > 0 && !this.paused) {
+      this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+      _ref = this.entities;
+      _results = [];
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        entity = _ref[_i];
+        if (entity.draw) {
+          _results.push(entity.draw(this.context));
+        } else {
+          _results.push(void 0);
+        }
       }
+      return _results;
     }
-    return _results;
   };
 
 
@@ -187,11 +296,13 @@ Game = (function() {
    */
 
   Game.keys = {
-    32: 'space',
-    37: 'left',
-    38: 'up',
-    39: 'right',
-    40: 'down'
+    32: "space",
+    37: "left",
+    38: "up",
+    39: "right",
+    40: "down",
+    80: "P",
+    83: "S"
   };
 
   return Game;

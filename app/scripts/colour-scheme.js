@@ -2,17 +2,27 @@
 var ColourScheme;
 
 ColourScheme = (function() {
+
+  /*
+  Construct a ColourScheme with the given colours.
+   */
   function ColourScheme(colours) {
     this.colours = colours;
   }
 
-  ColourScheme.prototype.setColour = function(identifier, colour) {
-    return this.colours[identifier] = colour;
-  };
+
+  /*
+  Get the named colour.
+   */
 
   ColourScheme.prototype.getColour = function(identifier) {
     return this.colours[identifier];
   };
+
+
+  /*
+  Get the standard colour scheme.
+   */
 
   ColourScheme.getMooduinoColourScheme = function() {
     return new ColourScheme({
@@ -22,7 +32,9 @@ ColourScheme = (function() {
       paddleBackground: "yellow",
       paddleStroke: "black",
       scoreBoardBackground: "#333",
-      scoreBoardForeground: "#CCC"
+      scoreBoardForeground: "#CCC",
+      messageBoxBackground: "Black",
+      messageBoxForeground: "White"
     });
   };
 

@@ -15,6 +15,11 @@ Background = (function(_super) {
     Background.__super__.constructor.call(this);
   }
 
+
+  /*
+  Draw the background.
+   */
+
   Background.prototype.draw = function(context) {
     context.fillStyle = this.game.colours.getColour('gameBackground');
     return context.fillRect(this.game.playArea.x, this.game.playArea.y, this.game.playArea.width, this.game.playArea.height);

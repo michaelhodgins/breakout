@@ -6,15 +6,21 @@ var ScoreBoard,
 ScoreBoard = (function(_super) {
   __extends(ScoreBoard, _super);
 
+
+  /*
+  Construct the ScoreBoard
+   */
+
   function ScoreBoard(game, height) {
     this.game = game;
     this.height = height != null ? height : 25;
     ScoreBoard.__super__.constructor.call(this);
   }
 
-  ScoreBoard.prototype.update = function(steps) {
-    return ScoreBoard.__super__.update.call(this, steps);
-  };
+
+  /*
+  Draw the scoreboard.
+   */
 
   ScoreBoard.prototype.draw = function(context) {
     context.fillStyle = this.game.colours.getColour('scoreBoardBackground');

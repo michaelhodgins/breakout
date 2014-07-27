@@ -1,15 +1,24 @@
 class Paddle extends Entity
+  ###
+  Construct a Paddle.
+  ###
   constructor: (@game) ->
     super()
     @height = 8
     @width = 60
     @reset()
 
+  ###
+  Reset the Paddle's position.
+  ###
   reset: ->
     @x = (@game.playArea.width - @width) / 2
     @y = @game.playArea.height - @height * 2
     @maximumVelocity = 10
 
+  ###
+  Update the Paddle.
+  ###
   update: (steps) ->
     if @game.keyPressed.left and @game.keyPressed.right or not @game.keyPressed.left and not @game.keyPressed.right
       @velocity = 0

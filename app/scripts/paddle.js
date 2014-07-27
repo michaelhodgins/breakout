@@ -6,6 +6,11 @@ var Paddle,
 Paddle = (function(_super) {
   __extends(Paddle, _super);
 
+
+  /*
+  Construct a Paddle.
+   */
+
   function Paddle(game) {
     this.game = game;
     Paddle.__super__.constructor.call(this);
@@ -14,11 +19,21 @@ Paddle = (function(_super) {
     this.reset();
   }
 
+
+  /*
+  Reset the Paddle's position.
+   */
+
   Paddle.prototype.reset = function() {
     this.x = (this.game.playArea.width - this.width) / 2;
     this.y = this.game.playArea.height - this.height * 2;
     return this.maximumVelocity = 10;
   };
+
+
+  /*
+  Update the Paddle.
+   */
 
   Paddle.prototype.update = function(steps) {
     if (this.game.keyPressed.left && this.game.keyPressed.right || !this.game.keyPressed.left && !this.game.keyPressed.right) {

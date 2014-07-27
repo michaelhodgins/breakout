@@ -1,13 +1,14 @@
 class ScoreBoard extends Entity
+  ###
+  Construct the ScoreBoard
+  ###
   constructor: (@game, @height = 25) ->
     super()
 
-  update: (steps) ->
-    super steps
-
-
+  ###
+  Draw the scoreboard.
+  ###
   draw: (context) ->
-#    super context
     context.fillStyle = @game.colours.getColour 'scoreBoardBackground'
     context.fillRect 0, 0, game.width, @height
 

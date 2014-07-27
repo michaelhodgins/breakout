@@ -8,14 +8,6 @@ canvas = $('#breakout')[0]
 game = new Game canvas
 game.colours = ColourScheme.getMooduinoColourScheme()
 
-#add the game entities.
-game.addEntity new Background(game), "background"
-game.addEntity new ScoreBoard(game), "scoreBoard"
-game.addEntity BlockMap.getBlockMap(game), "blockMap"
-game.addEntity new Ball(game), "ball"
-game.addEntity new Paddle(game), "paddle"
-
-
 #start the game
 game.start()
 

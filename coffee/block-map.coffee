@@ -1,16 +1,28 @@
 class BlockMap extends Entity
 
+  ###
+  Construct a BlockMap with the given blocks.
+  ###
   constructor: (@blocks = []) ->
     super()
 
+  ###
+  Update all the blocks in this BlockMap.
+  ###
   update: (steps) ->
     super steps
     block.update(steps) for block in @blocks
 
+  ###
+  Draw all the blocks in this BlockMap.
+  ###
   draw: (context) ->
     super context
     block.draw(context) for block in @blocks
 
+  ###
+  Build the standard grid of blocks.
+  ###
   @getBlockMap: (game) ->
     blockMap = new BlockMap []
     leftGutter = 25

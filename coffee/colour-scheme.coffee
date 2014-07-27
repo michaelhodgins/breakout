@@ -1,12 +1,18 @@
 class ColourScheme
+  ###
+  Construct a ColourScheme with the given colours.
+  ###
   constructor: (@colours) ->
 
-  setColour: (identifier, colour) ->
-    @colours[identifier] = colour
-
+  ###
+  Get the named colour.
+  ###
   getColour: (identifier) ->
     @colours[identifier]
 
+  ###
+  Get the standard colour scheme.
+  ###
   @getMooduinoColourScheme: ->
     new ColourScheme
       gameBackground: "#DFF"
@@ -16,3 +22,5 @@ class ColourScheme
       paddleStroke: "black"
       scoreBoardBackground: "#333"
       scoreBoardForeground: "#CCC"
+      messageBoxBackground: "Black"
+      messageBoxForeground: "White"

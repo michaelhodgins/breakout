@@ -6,10 +6,20 @@ var BlockMap,
 BlockMap = (function(_super) {
   __extends(BlockMap, _super);
 
+
+  /*
+  Construct a BlockMap with the given blocks.
+   */
+
   function BlockMap(blocks) {
     this.blocks = blocks != null ? blocks : [];
     BlockMap.__super__.constructor.call(this);
   }
+
+
+  /*
+  Update all the blocks in this BlockMap.
+   */
 
   BlockMap.prototype.update = function(steps) {
     var block, _i, _len, _ref, _results;
@@ -23,6 +33,11 @@ BlockMap = (function(_super) {
     return _results;
   };
 
+
+  /*
+  Draw all the blocks in this BlockMap.
+   */
+
   BlockMap.prototype.draw = function(context) {
     var block, _i, _len, _ref, _results;
     BlockMap.__super__.draw.call(this, context);
@@ -34,6 +49,11 @@ BlockMap = (function(_super) {
     }
     return _results;
   };
+
+
+  /*
+  Build the standard grid of blocks.
+   */
 
   BlockMap.getBlockMap = function(game) {
     var blockHeight, blockMap, blockNum, blockWidth, leftGutter, numBlocksPerRow, numRows, padding, rowNum, topGutter, x, y, _i, _j;

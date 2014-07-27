@@ -6,6 +6,11 @@ var Block,
 Block = (function(_super) {
   __extends(Block, _super);
 
+
+  /*
+  Construct a block.
+   */
+
   function Block(game, x, y, width, height, colourCode, hitPoints) {
     this.game = game;
     this.x = x != null ? x : 0;
@@ -19,9 +24,19 @@ Block = (function(_super) {
     this.hits = 0;
   }
 
+
+  /*
+  Update the block.
+   */
+
   Block.prototype.update = function(steps) {
     return Block.__super__.update.call(this, steps);
   };
+
+
+  /*
+  Draw the block.
+   */
 
   Block.prototype.draw = function(context) {
     if (!this.removed) {
@@ -34,6 +49,11 @@ Block = (function(_super) {
       return context.stroke();
     }
   };
+
+
+  /*
+  Call to indicate that the block has been hit.
+   */
 
   Block.prototype.incrementHitCount = function() {
     this.hits++;

@@ -11,6 +11,9 @@ class Ball extends Entity
     @height = @radius * 2
     @reset()
 
+  ###
+  Put the ball back into it's starting position and give it a random vector.
+  ###
   reset: ->
     @x = @game.playArea.width / 2
     @y = @game.playArea.height / 2
@@ -51,14 +54,15 @@ class Ball extends Entity
         if not block.removed and @intersect block
           block.incrementHitCount()
           @game.blockHit block
-          if @y <= block.y
+
+          if @x > block.x + block.width
+            @bounce 360
+          else if @y <= block.y
             @bounce 270
           else if @y >= block.y + block.height
             @bounce 90
           else if @x <= block.x
             @bounce 180
-          else
-            @bounce 360
   ###
   Draw the ball on the given drawing surface.
   ###

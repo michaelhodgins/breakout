@@ -23,6 +23,11 @@ Ball = (function(_super) {
     this.reset();
   }
 
+
+  /*
+  Put the ball back into it's starting position and give it a random vector.
+   */
+
   Ball.prototype.reset = function() {
     var maxVector, minVector, randVector;
     this.x = this.game.playArea.width / 2;
@@ -68,14 +73,16 @@ Ball = (function(_super) {
         if (!block.removed && this.intersect(block)) {
           block.incrementHitCount();
           this.game.blockHit(block);
-          if (this.y <= block.y) {
+          if (this.x > block.x + block.width) {
+            _results.push(this.bounce(360));
+          } else if (this.y <= block.y) {
             _results.push(this.bounce(270));
           } else if (this.y >= block.y + block.height) {
             _results.push(this.bounce(90));
           } else if (this.x <= block.x) {
             _results.push(this.bounce(180));
           } else {
-            _results.push(this.bounce(360));
+            _results.push(void 0);
           }
         } else {
           _results.push(void 0);
