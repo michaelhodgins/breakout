@@ -4,6 +4,9 @@ class Block extends Entity
   ###
   constructor: (@game, @x = 0, @y = 0, @width = 30, @height = 15, @colourCode = 0, @hitPoints = 1) ->
     super @x, @y
+    @reset()
+
+  reset: ->
     @removed = false
     @hits = 0
 

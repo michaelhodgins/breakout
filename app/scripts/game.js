@@ -108,7 +108,7 @@ Game = (function() {
    */
 
   Game.prototype.setup = function() {
-    this.lives = 5;
+    this.lives = 3;
     this.score = 0;
     this.entities = [];
     this.namedEntities = {};
@@ -150,6 +150,12 @@ Game = (function() {
       this.pausedLoops = 0;
       return this.paused = false;
     }
+  };
+
+  Game.prototype.nextLevel = function() {
+    console.log("nextLevel");
+    this.getNamedEntity("blockMap").reset();
+    return this.getNamedEntity("ball").reset();
   };
 
 
@@ -227,6 +233,9 @@ Game = (function() {
         this.pausedLoops++;
       } else {
         this.runningLoops++;
+      }
+      if (this.getNamedEntity("blockMap").blocksRemaining() === 0) {
+        this.nextLevel();
       }
     }
     startTime = new Date().getTime();

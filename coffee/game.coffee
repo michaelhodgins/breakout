@@ -76,7 +76,7 @@ class Game
   Set up the game's entities, score, lives and play area.
   ###
   setup: ->
-    @lives = 5
+    @lives = 3
     @score = 0
 
     @entities = []
@@ -113,6 +113,11 @@ class Game
     if @pausedLoops > 5
       @pausedLoops = 0
       @paused = false
+
+  nextLevel: ->
+    console.log "nextLevel"
+    @getNamedEntity("blockMap").reset()
+    @getNamedEntity("ball").reset()
 
   ###
   Render a message box.
@@ -169,6 +174,8 @@ class Game
         @pausedLoops++
       else
         @runningLoops++
+
+      @nextLevel() if @getNamedEntity("blockMap").blocksRemaining() is 0
 
     #calculate how much time has passed since the last update
     startTime = new Date().getTime()

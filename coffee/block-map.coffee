@@ -20,6 +20,17 @@ class BlockMap extends Entity
     super context
     block.draw(context) for block in @blocks
 
+  blocksRemaining: ->
+    remaining = 0
+    for block in @blocks
+      remaining++ if not block.removed
+
+    remaining
+
+  reset: ->
+    for block in @blocks
+      block.reset()
+
   ###
   Build the standard grid of blocks.
   ###

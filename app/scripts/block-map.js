@@ -50,6 +50,30 @@ BlockMap = (function(_super) {
     return _results;
   };
 
+  BlockMap.prototype.blocksRemaining = function() {
+    var block, remaining, _i, _len, _ref;
+    remaining = 0;
+    _ref = this.blocks;
+    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+      block = _ref[_i];
+      if (!block.removed) {
+        remaining++;
+      }
+    }
+    return remaining;
+  };
+
+  BlockMap.prototype.reset = function() {
+    var block, _i, _len, _ref, _results;
+    _ref = this.blocks;
+    _results = [];
+    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+      block = _ref[_i];
+      _results.push(block.reset());
+    }
+    return _results;
+  };
+
 
   /*
   Build the standard grid of blocks.

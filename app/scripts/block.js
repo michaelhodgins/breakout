@@ -20,9 +20,13 @@ Block = (function(_super) {
     this.colourCode = colourCode != null ? colourCode : 0;
     this.hitPoints = hitPoints != null ? hitPoints : 1;
     Block.__super__.constructor.call(this, this.x, this.y);
-    this.removed = false;
-    this.hits = 0;
+    this.reset();
   }
+
+  Block.prototype.reset = function() {
+    this.removed = false;
+    return this.hits = 0;
+  };
 
 
   /*

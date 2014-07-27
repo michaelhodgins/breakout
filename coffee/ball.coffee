@@ -17,7 +17,7 @@ class Ball extends Entity
   reset: ->
     @x = @game.playArea.width / 2
     @y = @game.playArea.height / 2
-    @velocity = 4
+    @velocity = 4.5
     @vector = 90
     #start the ball moving within a 50 degree arc, randomly
     minVector = -25

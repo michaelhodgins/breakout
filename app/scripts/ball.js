@@ -32,7 +32,7 @@ Ball = (function(_super) {
     var maxVector, minVector, randVector;
     this.x = this.game.playArea.width / 2;
     this.y = this.game.playArea.height / 2;
-    this.velocity = 4;
+    this.velocity = 4.5;
     this.vector = 90;
     minVector = -25;
     maxVector = 25;
