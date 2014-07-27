@@ -17,7 +17,12 @@ ScoreBoard = (function(_super) {
   };
 
   ScoreBoard.prototype.draw = function(context) {
-    return ScoreBoard.__super__.draw.call(this, context);
+    context.fillStyle = this.game.colours.getColour('scoreBoardBackground');
+    context.fillRect(0, 0, game.width, this.height);
+    context.fillStyle = this.game.colours.getColour('scoreBoardForeground');
+    context.font = '12px monospace';
+    context.fillText("Score: " + this.game.score, 20, 16);
+    return context.fillText("Lives: " + this.game.lives, this.game.width / 2 + 20, 16);
   };
 
   return ScoreBoard;

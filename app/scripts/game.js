@@ -24,6 +24,8 @@ Game = (function() {
       height: this.height,
       width: this.width
     };
+    this.lives = 3;
+    this.score = 0;
     this.entities = [];
     this.namedEntities = {};
     this.desiredStep = 1000 / this.fps;

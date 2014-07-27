@@ -18,6 +18,9 @@ class Game
       @width
     }
 
+    @lives = 3
+    @score = 0
+
     @entities = []
     @namedEntities = {}
     @desiredStep = 1000 / @fps
